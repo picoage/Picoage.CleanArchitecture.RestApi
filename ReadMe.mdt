@@ -1,0 +1,12 @@
+Get list of template: 
+dotnet new --list
+
+Add template.json file
+
+Create template 
+dotnet new --install C:\temp\template\Picoage.CleanArchitecture.RestApi\
+
+Install template on local machine 
+dotnet new Picoage.CleanArchitecture.RestApi -o TestProject 
+
+

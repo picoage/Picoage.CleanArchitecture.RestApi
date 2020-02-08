@@ -1,0 +1,12 @@
+{
+  "author": "Vishnu Kumar",
+  "classifications": [
+
+    "Web",
+    "ASP.NET"
+  ],
+  "identity": "Picoage.CleanArchitecture.RestApi.Template",
+  "name": "Picoage.CleanArchitecture.RestApi.Template",
+  "sourceName": "Picoage.CleanArchitecture.RestApi.Template",
+  "shortName": "Picoage.CleanArchitecture.RestApi"
+}
