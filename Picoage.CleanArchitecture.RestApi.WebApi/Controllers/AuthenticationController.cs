@@ -6,7 +6,7 @@ using Picoage.CleanArchitecture.RestApi.Application.RequestModels;
 namespace Picoage.CleanArchitecture.RestApi.WebApi.Controllers
 {
     [Route("api/v1/authentication")]
-    public class AuthenticationController : Controller
+    public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationService authenticationService;
 

@@ -11,6 +11,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Picoage.CleanArchitecture.RestApi.Application.Extensions;
 using Picoage.CleanArchitecture.RestApi.Persistence.Extensions;
+using System.Collections.Generic;
 
 namespace Picoage.CleanArchitecture.RestApi.WebApi
 {
@@ -32,12 +33,32 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "apiAuth"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+{
+    {
+        new OpenApiSecurityScheme
+        {
+            Reference = new OpenApiReference {
+                Type = ReferenceType.SecurityScheme,
+                Id = "apiAuth" }
+        }, new List<string>() }
+});
             });
 
             // configure jwt authentication
             AuthenticationSettings authenticationSettings = services.GetAuthenticationSettings(Configuration);
 
-            
+
             var key = Encoding.ASCII.GetBytes(authenticationSettings.Key);
             services.AddAuthentication(x =>
             {
@@ -57,7 +78,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi
                 };
             });
 
-        
+
             services.RegisterApplicationInstances();
             services.RegisterPersistenceInstances();
 
@@ -71,27 +92,28 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+                       
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
             app.UseSwagger();
 
+           
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
 
+            });
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
-            //TODO 
-            // app.UseAuthentication(); 
         }
     }
 }
