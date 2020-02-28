@@ -34,25 +34,32 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 
+
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
                     Name = "Authorization",
-                    In = ParameterLocation.Header,
+                    Scheme = "bearer",
                     Type = SecuritySchemeType.ApiKey,
-                    Scheme = "apiAuth"
+                    In = ParameterLocation.Header
                 });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-{
-    {
-        new OpenApiSecurityScheme
-        {
-            Reference = new OpenApiReference {
-                Type = ReferenceType.SecurityScheme,
-                Id = "apiAuth" }
-        }, new List<string>() }
-});
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "bearer",
+                            Name = "Bearer",
+                        },
+                        new List<string>()
+                    }
+                 });
             });
 
             // configure jwt authentication
@@ -92,7 +99,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-                       
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -103,13 +110,13 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi
 
             app.UseSwagger();
 
-           
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
 
             });
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
