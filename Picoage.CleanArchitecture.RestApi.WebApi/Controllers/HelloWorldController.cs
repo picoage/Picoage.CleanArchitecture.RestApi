@@ -3,10 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Picoage.CleanArchitecture.RestApi.WebApi.Controllers
 {
-    [Route("api/v1/")]
-    [Authorize]
-    [ApiController]
-    public class HelloWorldController : ControllerBase
+    public class HelloWorldController : BaseController
     {
         [HttpGet("helloworld")]
         public IActionResult GetHelloWorld()
