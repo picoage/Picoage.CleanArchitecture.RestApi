@@ -5,7 +5,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi.Controllers
 {
     public class HelloWorldController : BaseController
     {
-        [HttpGet("helloworld")]
+        [HttpGet()]
         public IActionResult GetHelloWorld()
         {
             return Ok("Hello World"); 

@@ -87,7 +87,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi
 
 
             services.RegisterApplicationInstances();
-            services.RegisterPersistenceInstances();
+            services.RegisterPersistenceInstances(Configuration);
 
         }
 

@@ -1,16 +1,26 @@
-﻿using Picoage.CleanArchitecture.RestApi.Application.Interfaces.Repositories;
+﻿using Newtonsoft.Json;
+using Picoage.CleanArchitecture.RestApi.Application.Interfaces.Repositories;
 using Picoage.CleanArchitecture.RestApi.Domain;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Picoage.CleanArchitecture.RestApi.Persistence
 {
     public class CustomerRepository : ICustomerRepository
     {
+        private readonly string path;
+
+        public CustomerRepository(string path)
+        {
+            this.path = path;
+        }
         public async Task<IEnumerable<Customer>> GetAll()
         {
-            return await Task.FromResult(new List<Customer> { new Customer { FirstName = "Bob", LastName = "Test", UserName = "dev@test.com", Password = "6a>2=b9piSo6n-d" } });
+            //cHa89YlWjlIZ
+            string file = await File.ReadAllTextAsync(path);
+            return JsonConvert.DeserializeObject<List<Customer>>(file);
         }
 
         public Task<Customer> GetById(Guid id)
