@@ -9,4 +9,5 @@ dotnet new --install C:\temp\template\Picoage.CleanArchitecture.RestApi\
 Install template on local machine 
 dotnet new Picoage.CleanArchitecture.RestApi -o TestProject 
 
+**Important**
 #Note: SourceName should be same as project name 
