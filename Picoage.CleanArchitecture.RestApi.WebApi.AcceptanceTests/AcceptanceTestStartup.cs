@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Picoage.CleanArchitecture.RestApi.Application.RequestModels;
-using Picoage.CleanArchitecture.RestApi.Domain;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -38,8 +37,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi.AcceptanceTests
         {
             var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
-            //TODO to Relative path 
-            var builder = new WebHostBuilder().UseContentRoot(@"C:\code\Picoage.CleanArchitecture.RestApi\Picoage.CleanArchitecture.RestApi.WebApi.AcceptanceTests\bin\Debug\net5.0").UseEnvironment("Development").UseConfiguration(config).UseStartup<Startup>();
+            var builder = new WebHostBuilder().UseEnvironment("Development").UseConfiguration(config).UseStartup<Startup>();
 
             TestServer testServer = new TestServer(builder);
 
