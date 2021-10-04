@@ -12,6 +12,9 @@ using Microsoft.IdentityModel.Tokens;
 using Picoage.CleanArchitecture.RestApi.Application.Extensions;
 using Picoage.CleanArchitecture.RestApi.Persistence.Extensions;
 using System.Collections.Generic;
+using System.Reflection;
+using System.IO;
+using System;
 
 namespace Picoage.CleanArchitecture.RestApi.WebApi
 {
@@ -60,6 +63,11 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi
                         new List<string>()
                     }
                  });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
             // configure jwt authentication

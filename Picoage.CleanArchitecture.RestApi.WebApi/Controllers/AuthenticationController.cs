@@ -15,6 +15,25 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi.Controllers
             this.authenticationService = authenticationService;
         }
 
+        /// <summary>
+        /// Post User Info To Get Auth Token
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST:
+        ///     {
+        ///         "Username":"dev@test.com",
+        ///         "Password":"4bUlj1GXtE20"          
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="authenticationRequest"></param>
+        /// <returns>AuthenticationResponse With JWT Token</returns>
+        /// <response code="200">Authentication Response</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="204">No Content found</response>  
+
         [HttpPost]
         [Route("api-token")]
         public async Task<IActionResult> GetAuthenticationToken([FromBody]AuthenticationRequest authenticationRequest)
