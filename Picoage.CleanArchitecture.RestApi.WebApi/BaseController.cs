@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Picoage.CleanArchitecture.RestApi.WebApi
 {
+    [Produces("application/json")]
     [Route("api/v1/[controller]")]
     [ApiController]
     [Authorize]

@@ -32,7 +32,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi.AcceptanceTests.Controllers
         }
 
         [Fact]
-        public async Task Given_Valid_Request_When_Resource_NotExsists_Then_Return_No_Token_And_StatusCode_NoContent()
+         public async Task Given_Valid_Request_When_Resource_NotExsists_Then_Return_No_Token_And_StatusCode_NoContent()
         {
             //Arrange
             Username = "testuser";

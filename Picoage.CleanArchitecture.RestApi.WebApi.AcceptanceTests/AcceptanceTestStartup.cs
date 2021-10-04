@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Picoage.CleanArchitecture.RestApi.Domain;
+using Picoage.CleanArchitecture.RestApi.Application.RequestModels;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -22,7 +22,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi.AcceptanceTests
 
         private protected string Username { get; set; } = "dev@test.com";
 
-        private protected string Password { get; set; } = "6a>2=b9piSo6n-d";
+        private protected string Password { get; set; } = "4bUlj1GXtE20";
 
         private protected HttpStatusCode StatusCode { get; private set; }
 
@@ -37,8 +37,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi.AcceptanceTests
         {
             var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
-            //TODO to Relative path 
-            var builder = new WebHostBuilder().UseContentRoot(@"C:\Projects\Picoage.CleanArchitecture.RestApi\Picoage.CleanArchitecture.RestApi.WebApi").UseEnvironment("Development").UseConfiguration(config).UseStartup<Startup>();
+            var builder = new WebHostBuilder().UseEnvironment("Development").UseConfiguration(config).UseStartup<Startup>();
 
             TestServer testServer = new TestServer(builder);
 
@@ -68,17 +67,27 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi.AcceptanceTests
 
         protected async Task<string> GetBearerToken(HttpClient client)
         {
-
-            HttpResponseMessage result = await client.GetAsync(@$"api/v1/authentication/api-token?username={Username}&password={Password}");
-
-            StatusCode = result.StatusCode;
-
-            if (StatusCode == HttpStatusCode.OK)
+            try
             {
+                AuthenticationRequest authenticationRequest = new AuthenticationRequest { Username = Username, Password = Password };
+                var json = JsonConvert.SerializeObject(authenticationRequest);
+
+                var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage result = await client.PostAsync(@$"api/v1/authentication/api-token", data);
+
+                StatusCode = result.StatusCode; 
+                result.EnsureSuccessStatusCode();
+
                 List<JToken> values = JObject.Parse(await result.Content.ReadAsStringAsync()).Children().ToList();
                 return values.LastOrDefault().First().ToString();
             }
-            return null;
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+
         }
     }
 }
