@@ -38,7 +38,7 @@ namespace Picoage.CleanArchitecture.RestApi.Application.Services
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(authenticationConfiguration.Value.Key);
-            var expires = DateTime.UtcNow.AddDays(authenticationConfiguration.Value.Expire);
+            var expires = DateTime.UtcNow.AddMinutes(authenticationConfiguration.Value.Expire);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -48,7 +48,7 @@ namespace Picoage.CleanArchitecture.RestApi.Application.Services
                    new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString())
                }),
                 Issuer = "JWT:Picoage",
-                Expires = DateTime.UtcNow.AddDays(authenticationConfiguration.Value.Expire),
+                Expires =expires,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
