@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Src\Core\Picoage.CleanArchitecture.RestApi.Domain\Picoage.CleanArchitecture.RestApi.Domain.csproj" />
-    <ProjectReference Include="..\..\Src\Presentation\Picoage.CleanArchitecture.RestApi.WebApi\Picoage.CleanArchitecture.RestApi.WebApi.csproj" />
+    <ProjectReference Include="..\..\..\Src\Core\Picoage.CleanArchitecture.RestApi.Application\Picoage.CleanArchitecture.RestApi.Application.csproj" />
+    <ProjectReference Include="..\..\..\Src\Presentation\Picoage.CleanArchitecture.RestApi.WebApi\Picoage.CleanArchitecture.RestApi.WebApi.csproj" />
   </ItemGroup>
 
 </Project>
