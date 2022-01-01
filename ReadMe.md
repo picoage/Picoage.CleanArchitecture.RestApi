@@ -9,7 +9,7 @@
 
 - Core layer should have unit tests
 - Infrastructure layer should have integration tests
-- Presentation layer should have accaptance tests
+- Presentation layer should have acceptance tests
 
 # Testing framework
 
