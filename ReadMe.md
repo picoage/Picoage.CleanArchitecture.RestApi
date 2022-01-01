@@ -17,11 +17,10 @@
 
 # Acceptance Tests
 
-- In-memory test is used
+- In-memory test server is used
 
 # Patterns
 
-- Creation patterns: Factory and builder patterns used
 - Behaviour patterns: Meditor and CQRS patterns used
 - Option Pattern is used for reading Config values from appsettings
 
