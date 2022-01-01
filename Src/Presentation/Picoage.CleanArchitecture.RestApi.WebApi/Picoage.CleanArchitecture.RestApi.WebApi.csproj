@@ -24,7 +24,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.10" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Picoage.CleanArchitecture.RestApi.Application\Picoage.CleanArchitecture.RestApi.Application.csproj" />
-    <ProjectReference Include="..\Picoage.CleanArchitecture.RestApi.Persistence\Picoage.CleanArchitecture.RestApi.Persistence.csproj" />
+    <ProjectReference Include="..\..\Core\Picoage.CleanArchitecture.RestApi.Application\Picoage.CleanArchitecture.RestApi.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Picoage.CleanArchitecture.RestApi.Persistence\Picoage.CleanArchitecture.RestApi.Persistence.csproj" />
   </ItemGroup>
 </Project>
