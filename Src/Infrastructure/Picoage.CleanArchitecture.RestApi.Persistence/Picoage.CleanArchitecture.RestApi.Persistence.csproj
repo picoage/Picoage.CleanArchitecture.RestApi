@@ -13,4 +13,10 @@
     <ProjectReference Include="..\..\Core\Picoage.CleanArchitecture.RestApi.Application\Picoage.CleanArchitecture.RestApi.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Datastore.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
