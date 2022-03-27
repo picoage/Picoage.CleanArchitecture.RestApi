@@ -1,14 +1,23 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Picoage.CleanArchitecture.RestApi.Application.Commands;
+using System.Threading.Tasks;
 
 namespace Picoage.CleanArchitecture.RestApi.WebApi.Controllers
 {
     public class HelloWorldController : BaseController
     {
-        [HttpGet()]
-        public IActionResult GetHelloWorld()
+        private readonly IMediator mediator;
+
+        public HelloWorldController(IMediator mediator)
         {
-            return Ok("Hello World"); 
+            this.mediator = mediator;
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> GetHelloWorld()
+        {
+            return Ok(await mediator.Send(new HelloWorldQuery())); 
         }
     }
 }

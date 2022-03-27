@@ -38,6 +38,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi.Controllers
         [Route("api-token")]
         public async Task<IActionResult> GetAuthenticationToken([FromBody]AuthenticationRequest authenticationRequest)
         {
+
             if (string.IsNullOrEmpty(authenticationRequest?.Username) || string.IsNullOrEmpty(authenticationRequest.Password))
                 return BadRequest(error: "Invalid user name or password");
 

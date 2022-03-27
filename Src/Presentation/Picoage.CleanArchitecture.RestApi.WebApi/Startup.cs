@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
 using System;
+using MediatR;
 
 namespace Picoage.CleanArchitecture.RestApi.WebApi
 {
@@ -31,6 +32,8 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddMediatR(typeof(Startup));
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
