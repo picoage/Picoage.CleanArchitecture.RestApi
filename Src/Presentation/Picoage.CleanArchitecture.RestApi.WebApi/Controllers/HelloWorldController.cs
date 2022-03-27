@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Picoage.CleanArchitecture.RestApi.Application.Commands;
+using Picoage.CleanArchitecture.RestApi.Application.Queries;
 using System.Threading.Tasks;
 
 namespace Picoage.CleanArchitecture.RestApi.WebApi.Controllers
