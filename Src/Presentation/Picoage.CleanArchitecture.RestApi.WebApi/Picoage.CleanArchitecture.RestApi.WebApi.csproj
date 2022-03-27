@@ -5,14 +5,8 @@
   <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="Datastore.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Datastore.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="5.0.10" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
