@@ -37,7 +37,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: pack
-    packagesToPack: '**/*.csproj'
+    packagesToPack: 'Src/Presentation/Picoage.CleanArchitecture.RestApi.WebApi/.csproj'
     packDestination: '$(Build.ArtifactStagingDirectory)'
 
 - task: NuGetCommand@2
