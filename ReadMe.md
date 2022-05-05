@@ -45,5 +45,6 @@ nuget.exe pack .\Picoage.CleanArchitecture.RestApi.nuspec -OutputDirectory nuget
 
 # Reference
 Youtube: https://www.youtube.com/watch?v=GDNcxU0_OuE
+         https://www.youtube.com/watch?v=2hpNFrY_faI  
 
 GitHub: https://aka.ms/netcore-templates
