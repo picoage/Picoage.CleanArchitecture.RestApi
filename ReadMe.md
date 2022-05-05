@@ -38,3 +38,8 @@ Install template on local machine
 dotnet new Picoage.CleanArchitecture.RestApi -o TestProject
 
 #Note: SourceName should be same as project name
+
+# Rereference
+Youtube: https://www.youtube.com/watch?v=GDNcxU0_OuE
+
+GitHub: https://aka.ms/netcore-templates
