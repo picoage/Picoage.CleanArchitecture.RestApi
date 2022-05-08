@@ -4,49 +4,49 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
-  - main
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  displayName: Build 
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  displayName: Test
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
   
-  pool:
-    vmImage: 'windows-latest'
-  
-  variables:
-    solution: '**/*.sln'
-    buildPlatform: 'Any CPU'
-    buildConfiguration: 'Release'
-  
-  steps:
-  - task: NuGetToolInstaller@1
-  
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: '$(solution)'
-  
-  - task: VSBuild@1
-    displayName: Build 
-    inputs:
-      solution: '$(solution)'
-      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-      platform: '$(buildPlatform)'
-      configuration: '$(buildConfiguration)'
-  
-  - task: VSTest@2
-    displayName: Test
-    inputs:
-      platform: '$(buildPlatform)'
-      configuration: '$(buildConfiguration)'
-  
-    
-  - task: NuGetCommand@2
-    displayName: Pack Nuget 
-    inputs:
-      command: pack
-      packagesToPack: 'Picoage.CleanArchitecture.RestApi.nuspec'
-      packDestination: '$(Build.ArtifactStagingDirectory)'
-  
-  - task: NuGetCommand@2
-    displayName: PushNuget 
-    inputs:
-      command: 'push'
-      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-      nuGetFeedType: 'external'
-      publishFeedCredentials: 'nuget.org'
+- task: NuGetCommand@2
+  displayName: Pack Nuget 
+  inputs:
+    command: pack
+    packagesToPack: 'Picoage.CleanArchitecture.RestApi.nuspec'
+    packDestination: '$(Build.ArtifactStagingDirectory)'
+
+- task: NuGetCommand@2
+  displayName: PushNuget 
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'nuget.org'
