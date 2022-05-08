@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>Picoage.CleanArchitecture.RestApi.nuspec</id>
+    <id>Picoage.CleanArchitecture.RestApi</id>
     <version>1.0.1-alpha</version>
     <description>
       Project template for Restful webApi with clean architecture. 
