@@ -47,7 +47,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'custom'
-    arguments: 'nuget.exe pack .\Picoage.CleanArchitecture.RestApi.nuspec'
+    arguments: 'pack .\Picoage.CleanArchitecture.RestApi.nuspec'
     packDestination: '$(Build.ArtifactStagingDirectory)'
 
 - task: NuGetCommand@2
