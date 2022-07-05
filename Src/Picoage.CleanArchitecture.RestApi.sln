@@ -28,6 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".template.config", ".template.config", "{DD804FC5-A359-4470-98BD-E89F33F2A7F9}"
 	ProjectSection(SolutionItems) = preProject
+		.template.config\ide.host.json = .template.config\ide.host.json
 		.template.config\template.json = .template.config\template.json
 	EndProjectSection
 EndProject

@@ -21,6 +21,12 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+ stages:
+    - stage: Build
+      jobs: Build
+      steps:
+      - template : Deployment/build-app.yml       
+
 - task: VSBuild@1
   displayName: Build 
   inputs:
@@ -34,16 +40,7 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
   
-# - task: NuGetCommand@2
-#   displayName: Pack Nuget 
-#   inputs:
-#     command: pack
-#     packagesToPack: 'Picoage.CleanArchitecture.RestApi.nuspec'
-#     packDestination: '$(Build.ArtifactStagingDirectory)'
-
-    
 - task: NuGetCommand@2
   inputs:
     command: 'custom'
