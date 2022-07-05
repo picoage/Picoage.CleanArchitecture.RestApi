@@ -1,0 +1,6 @@
+
+- task: VSTest@2
+  displayName: Test
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'

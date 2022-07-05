@@ -4,54 +4,31 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
-- main
+  - main
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: "windows-latest"
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
-steps:
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+  solution: "**/*.sln"
+  buildPlatform: "Any CPU"
+  buildConfiguration: "Release"
 
 stages:
-    - stage: Build
-      jobs: Build
-      steps:
-      - template : Deployment/build-app.yml       
+  - stage: Build
+    jobs:
+      - job: Build
+        steps:
+          - template: Deployment/build-app.yml
 
-- task: VSBuild@1
-  displayName: Build 
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  - stage: Tests
+    jobs:
+      - job: Tests
+        steps:
+          - template: Deployment/test-app.yml
 
-- task: VSTest@2
-  displayName: Test
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-  
-- task: NuGetCommand@2
-  displayName: Pack Nuget 
-  inputs:
-    command: pack
-    packagesToPack: 'Picoage.CleanArchitecture.RestApi.nuspec'
-    packDestination: '$(Build.ArtifactStagingDirectory)'
-
-- task: NuGetCommand@2
-  displayName: Push Nuget 
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'nuget.org'
+  - stage: Push Nuget
+    jobs:
+      - job: Push Nuget
+        steps:
+          - template: Deployment/push-nugetorg.yml
