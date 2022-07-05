@@ -42,13 +42,14 @@ steps:
     configuration: '$(buildConfiguration)'
   
 - task: NuGetCommand@2
+  displayName: Pack Nuget 
   inputs:
-    command: 'custom'
-    arguments: 'pack .\Picoage.CleanArchitecture.RestApi.nuspec'
+    command: pack
+    packagesToPack: 'Picoage.CleanArchitecture.RestApi.nuspec'
     packDestination: '$(Build.ArtifactStagingDirectory)'
 
 - task: NuGetCommand@2
-  displayName: PushNuget 
+  displayName: Push Nuget 
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
