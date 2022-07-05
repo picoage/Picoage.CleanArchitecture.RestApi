@@ -27,8 +27,8 @@ stages:
         steps:
           - template: Deployment/test-app.yml
 
-  - stage: Push Nuget
+  - stage: PublishNuget
     jobs:
-      - job: Push Nuget
+      - job: PublishNuget
         steps:
           - template: Deployment/push-nugetorg.yml
