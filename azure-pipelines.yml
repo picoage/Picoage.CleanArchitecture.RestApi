@@ -40,7 +40,7 @@ stages:
 
   - stage: PublishNuget
     dependsOn: Tests
-    condition: and(succeeded(),eq(variables['Build.Reason'], 'PullRequest'
+    condition: and(succeeded(),eq(variables['Build.Reason'], 'PullRequest'),
       eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     jobs:
       - job: PublishNuget
