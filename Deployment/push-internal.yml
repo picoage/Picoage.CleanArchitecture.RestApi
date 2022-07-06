@@ -1,0 +1,15 @@
+ steps:
+ - task: NuGetCommand@2
+   displayName: Pack Nuget 
+   inputs:
+     command: pack
+     packagesToPack: 'Picoage.CleanArchitecture.RestApi.nuspec'
+     packDestination: '$(Build.ArtifactStagingDirectory)'
+
+- task: NuGetCommand@2
+  displayName: Push To Internal
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '67f3b17c-27bc-46e6-b911-a0ebcfe05065/25458378-8a4e-4c85-aa5e-93f39e14d3db'
