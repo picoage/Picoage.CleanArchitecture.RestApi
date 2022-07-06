@@ -22,12 +22,25 @@ stages:
           - template: Deployment/build-app.yml
 
   - stage: Tests
+    dependsOn: Build
     jobs:
       - job: Tests
         steps:
           - template: Deployment/test-app.yml
 
+  - stage: PublishInternal
+    dependsOn: Tests
+    condition: |
+      and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'), 
+                       ne(variables['Build.SourceBranch'], 'refs/heads/master')
+    jobs:
+      - job: PublishInternal
+        steps:
+          - template: Deployment/push-internal.yml
+
   - stage: PublishNuget
+    dependsOn: Tests
+    condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
     jobs:
       - job: PublishNuget
         steps:
