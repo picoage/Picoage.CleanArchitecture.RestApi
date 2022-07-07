@@ -4,3 +4,4 @@ How to install this template:
 (b)	Check if installed locally: dotnet new  -l 
 (c)	 CD into the directory you want to create the project 
 (d)	Create Project : CD into the directory you want to create the project and run this command  dotnet new PicoageCleanArchitectureRestApi -o [ProjectName]
+    
