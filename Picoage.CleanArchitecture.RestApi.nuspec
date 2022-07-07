@@ -2,9 +2,9 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Picoage.CleanArchitecture.RestApi</id>
-    <version>1.0.8-alpha</version>
+    <version>1.0.0</version>
     <description>
-      Project template for Restful webApi with clean architecture. 
+      This is a web api project template built on Clean Architecture.
     </description>
       <authors>Vishnu - Picoage</authors>
     <license type="expression">Apache-2.0</license>
