@@ -6,13 +6,12 @@
     <description>
       Project template for Restful webApi with clean architecture. 
     </description>
-    <authors>Vishnu - Picoage</authors>
+      <authors>Vishnu - Picoage</authors>
     <license type="expression">Apache-2.0</license>
     <packageTypes>
       <packageType name="Template" />
     </packageTypes>
-    <readme>Deployment\README.md</readme>
-  </metadata>
+    </metadata>
   <files>
     <file src="Src\**\*.*" exclude="Src\**\bin\**\*.*;Src\**\obj\**\*.*" target="Src" />
     <file src="Deployment\README.md" target="\" />
