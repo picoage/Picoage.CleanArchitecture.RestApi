@@ -25,6 +25,7 @@
 - Option Pattern is used for reading Config values from appsettings
 
 # Steps to create template locally
+Reset-Templates
 
 Get list of template:
 dotnet new --list
@@ -38,3 +39,12 @@ Install template on local machine
 dotnet new Picoage.CleanArchitecture.RestApi -o TestProject
 
 #Note: SourceName should be same as project name
+
+# Nuget Command 
+nuget.exe pack .\Picoage.CleanArchitecture.RestApi.nuspec -OutputDirectory nuget
+
+# Reference
+Youtube: https://www.youtube.com/watch?v=GDNcxU0_OuE
+         https://www.youtube.com/watch?v=2hpNFrY_faI  
+
+GitHub: https://aka.ms/netcore-templates
