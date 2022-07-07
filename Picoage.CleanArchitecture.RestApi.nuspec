@@ -4,7 +4,7 @@
     <id>Picoage.CleanArchitecture.RestApi</id>
     <version>1.0.0</version>
     <description>
-      This is a web api project template built on Clean Architecture.
+      This is a web api project template built on Clean Architecture. 
     </description>
       <authors>Vishnu - Picoage</authors>
     <license type="expression">Apache-2.0</license>
@@ -14,6 +14,6 @@
     </metadata>
   <files>
     <file src="Src\**\*.*" exclude="Src\**\bin\**\*.*;Src\**\obj\**\*.*" target="Src" />
-    <file src="Deployment\README.md" target="\" />
+    <file src="Deployment\README.md" target="" />
   </files>  
 </package>
