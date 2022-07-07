@@ -6,6 +6,6 @@
                
 - 	Create Project : CD into the directory you want to create the project and run this command  dotnet new PicoageCleanArchitectureRestApi -o [ProjectName]
 
-Git Repo: https://github.com/picoage/Picoage.CleanArchitecture.RestAp    
+Git Repo: https://github.com/picoage/Picoage.CleanArchitecture.RestApi    
 
 ### Note: It's running on .NET 6  
