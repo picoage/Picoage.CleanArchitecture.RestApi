@@ -1,19 +1,15 @@
 ﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Picoage.CleanArchitecture.RestApi.Application.Interfaces.Services;
+using Picoage.CleanArchitecture.RestApi.Application.Queries;
 using Picoage.CleanArchitecture.RestApi.Application.RequestModels;
 
 namespace Picoage.CleanArchitecture.RestApi.WebApi.Controllers
 {
     [Route("api/v1/authentication")]
-    public class AuthenticationController : ControllerBase
+    public class AuthenticationController(IMediator mediator) : ControllerBase
     {
-        private readonly IAuthenticationService authenticationService;
-
-        public AuthenticationController(IAuthenticationService authenticationService)
-        {
-            this.authenticationService = authenticationService;
-        }
 
         /// <summary>
         /// Post User Info To Get Auth Token
@@ -42,7 +38,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi.Controllers
             if (string.IsNullOrEmpty(authenticationRequest?.Username) || string.IsNullOrEmpty(authenticationRequest.Password))
                 return BadRequest(error: "Invalid user name or password");
 
-            return Ok(await authenticationService.Authenticate(authenticationRequest.Username, authenticationRequest.Password));
+            return Ok(await mediator.Send(new AuthenticationQuery(authenticationRequest)));
         }
     }
-}
+}   
