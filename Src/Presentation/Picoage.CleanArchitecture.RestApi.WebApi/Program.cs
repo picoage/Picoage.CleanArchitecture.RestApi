@@ -23,8 +23,10 @@ public class Program
 
         // Add services to the container.
         builder.Services.RegisterApplicationInstances();
+
         builder.Services.RegisterPersistenceInstances(builder.Configuration);
 
+        builder.Services.AddHealthChecks();
 
         builder.Services.AddEndpointsApiExplorer();
 
@@ -35,6 +37,63 @@ public class Program
         builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
         // Register the Swagger generator, defining 1 or more Swagger documents
+        BuildSwaggerDocumentation(builder);
+
+        // configure jwt authentication
+        BuildTokenAuthentication(builder);
+
+
+        var app = builder.Build();
+
+        app.UseHttpsRedirection();
+
+        app.UseRouting();
+
+        app.UseAuthentication();
+
+        app.UseAuthorization();
+
+        app.UseSwagger();
+
+        app.MapHealthChecks("/healthz");
+
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+
+        });
+
+        app.MapControllers();
+        app.Run();
+    }
+
+    private static void BuildTokenAuthentication(WebApplicationBuilder builder)
+    {
+        AuthenticationSettings authenticationSettings = builder.Services.GetAuthenticationSettings(builder.Configuration);
+
+
+        var key = Encoding.ASCII.GetBytes(authenticationSettings.Key);
+        builder.Services.AddAuthentication(x =>
+        {
+            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(x =>
+        {
+            x.RequireHttpsMetadata = false;
+            x.SaveToken = true;
+            x.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        });
+    }
+
+    private static void BuildSwaggerDocumentation(WebApplicationBuilder builder)
+    {
         builder.Services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
@@ -71,51 +130,6 @@ public class Program
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             c.IncludeXmlComments(xmlPath);
         });
-
-        // configure jwt authentication
-        AuthenticationSettings authenticationSettings = builder.Services.GetAuthenticationSettings(builder.Configuration);
-
-
-        var key = Encoding.ASCII.GetBytes(authenticationSettings.Key);
-        builder.Services.AddAuthentication(x =>
-        {
-            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(x =>
-        {
-            x.RequireHttpsMetadata = false;
-            x.SaveToken = true;
-            x.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false
-            };
-        });
-
-
-        var app = builder.Build();
-
-        app.UseHttpsRedirection();
-
-        app.UseRouting();
-
-        app.UseAuthentication();
-
-        app.UseAuthorization();
-
-        app.UseSwagger();
-
-        app.UseSwaggerUI(c =>
-        {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-
-        });
-
-        app.MapControllers();
-        app.Run();
     }
 }
 
