@@ -8,7 +8,6 @@ internal class AcceptanceTestWebApplicationFactory<TProgram> : WebApplicationFac
     override protected void ConfigureWebHost(IWebHostBuilder builder)
     {
         IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-        builder.UseEnvironment("Development").UseConfiguration(config);
-        
+        builder.UseEnvironment("Development").UseConfiguration(config);        
     }
 }
