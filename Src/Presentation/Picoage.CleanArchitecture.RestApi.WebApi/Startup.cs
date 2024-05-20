@@ -33,7 +33,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi
         {
             services.AddControllers();
 
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
