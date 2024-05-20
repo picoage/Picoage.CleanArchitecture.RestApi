@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -35,13 +36,10 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi.AcceptanceTests
 
         public AcceptanceTestStartup(bool authentication = true)
         {
-            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        
+            var webApplicationFactory = new AcceptanceTestWebApplicationFactory<Program>();
 
-            var builder = new WebHostBuilder().UseEnvironment("Development").UseConfiguration(config).UseStartup<Startup>();
-
-            TestServer testServer = new TestServer(builder);
-
-            Client = testServer.CreateClient();
+            Client = webApplicationFactory.CreateClient();
 
             if (authentication)
                 SetAuthenticationToClientHeader().Wait();
@@ -76,7 +74,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi.AcceptanceTests
 
                 HttpResponseMessage result = await client.PostAsync(@$"api/v1/authentication/api-token", data);
 
-                StatusCode = result.StatusCode; 
+                StatusCode = result.StatusCode;
                 result.EnsureSuccessStatusCode();
 
                 List<JToken> values = JObject.Parse(await result.Content.ReadAsStringAsync()).Children().ToList();

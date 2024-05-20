@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Picoage.CleanArchitecture.RestApi.Application.Services
 {
-    public class AuthenticationService : IAuthenticationService
+    internal class AuthenticationService : IAuthenticationService
     {
         private readonly ICustomerRepository customerRepository;
         private readonly IOptions<AuthenticationSettings> authenticationConfiguration;

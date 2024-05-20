@@ -2,7 +2,7 @@
 using Picoage.CleanArchitecture.RestApi.Application.Interfaces.Services;
 using Picoage.CleanArchitecture.RestApi.Application.Services;
 using System.Reflection;
-using MediatR; 
+using MediatR;
 
 namespace Picoage.CleanArchitecture.RestApi.Application.Extensions
 {
@@ -10,7 +10,6 @@ namespace Picoage.CleanArchitecture.RestApi.Application.Extensions
     {
         public static void RegisterApplicationInstances(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddMediatR(Assembly.GetExecutingAssembly()); 
             serviceCollection.AddTransient<IAuthenticationService, AuthenticationService>();
         }
     }
