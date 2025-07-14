@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Picoage.CleanArchitecture.RestApi.Application.Commands;
 using Picoage.CleanArchitecture.RestApi.Application.Interfaces.Services;
 using Picoage.CleanArchitecture.RestApi.Application.Queries;
 using Picoage.CleanArchitecture.RestApi.Application.RequestModels;
@@ -38,7 +39,7 @@ namespace Picoage.CleanArchitecture.RestApi.WebApi.Controllers
             if (string.IsNullOrEmpty(authenticationRequest?.Username) || string.IsNullOrEmpty(authenticationRequest.Password))
                 return BadRequest(error: "Invalid user name or password");
 
-            return Ok(await mediator.Send(new AuthenticationQuery(authenticationRequest)));
+            return Ok(await mediator.Send(new AuthenticationCommand(authenticationRequest)));
         }
     }
 }   
